@@ -25,6 +25,20 @@ class ArithExpTest {
     }
 
     @Test
+    void respectsOperatorPrecedenceEncodedInTheTree() throws MyException {
+        IExp e = new ArithExp(ArithOp.ADD, num(2),
+                new ArithExp(ArithOp.MUL, num(3), num(5)));
+        assertEquals(new IntValue(17), e.eval(symTable));
+    }
+
+    @Test
+    void divisionByZeroThrows() {
+        IExp e = new ArithExp(ArithOp.DIV, num(1), num(0));
+        var ex = assertThrows(ExpressionException.class, () -> e.eval(symTable));
+        assertEquals("division by zero", ex.getMessage());
+    }
+
+        @Test
     void addAddsTwoNumbers() throws MyException {
         IExp e = new ArithExp(ArithOp.ADD, num(2), num(3));
         assertEquals(new IntValue(5), e.eval(symTable));
@@ -49,24 +63,17 @@ class ArithExpTest {
     }
 
     @Test
-    void divisionByZeroThrows() {
-        IExp e = new ArithExp(ArithOp.DIV, num(1), num(0));
-        var ex = assertThrows(ExpressionException.class, () -> e.eval(symTable));
-        assertEquals("Division by zero", ex.getMessage());
-    }
-
-    @Test
     void nonIntegerFirstOperandThrows() {
         IExp e = new ArithExp(ArithOp.ADD, new ValueExp(new BoolValue(true)), num(1));
         var ex = assertThrows(ExpressionException.class, () -> e.eval(symTable));
-        assertEquals("First operand is not an integer", ex.getMessage());
+        assertEquals("first operand is not an integer", ex.getMessage());
     }
 
     @Test
     void nonIntegerSecondOperandThrows() {
         IExp e = new ArithExp(ArithOp.ADD, num(1), new ValueExp(new BoolValue(true)));
         var ex = assertThrows(ExpressionException.class, () -> e.eval(symTable));
-        assertEquals("Second operand is not an integer", ex.getMessage());
+        assertEquals("second operand is not an integer", ex.getMessage());
     }
 
     @Test

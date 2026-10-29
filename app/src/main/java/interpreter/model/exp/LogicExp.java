@@ -19,4 +19,9 @@ public record LogicExp(LogicOp op, IExp left, IExp right) implements IExp {
             case OR -> new BoolValue(b1 || b2);
         };
     }
+
+    @Override
+    public String toString() {
+        return "(" + left + " " + op + " " + right + ")";
+    }
 }

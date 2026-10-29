@@ -12,4 +12,9 @@ public record VarExp(String id) implements IExp {
             throw new ExpressionException("variable " + id + " is not defined");
         return symTable.lookup(id);
     }
+
+    @Override
+    public String toString() {
+        return id;
+    }
 }
