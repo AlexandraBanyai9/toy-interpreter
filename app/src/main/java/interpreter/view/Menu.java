@@ -48,7 +48,7 @@ public class Menu {
     }
 
     public void menu() {
-        int selected = -1;   // -1 = nimic selectat
+        int selected = -1;
 
         while (true) {
             System.out.println("\n--- MAIN MENU ---");
