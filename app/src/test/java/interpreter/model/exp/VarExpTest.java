@@ -29,6 +29,6 @@ class VarExpTest {
     void undefinedVariableThrows() {
         var ex = assertThrows(ExpressionException.class,
                 () -> new VarExp("x").eval(symTable));
-        assertEquals("Variable x is not defined", ex.getMessage());
+        assertEquals("variable x is not defined", ex.getMessage());
     }
 }

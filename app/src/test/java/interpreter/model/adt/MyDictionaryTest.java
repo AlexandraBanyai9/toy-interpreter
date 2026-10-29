@@ -22,7 +22,7 @@ class MyDictionaryTest {
     @Test
     void lookupOnInvalidKeyThrows(){
         var ex = assertThrows(ADTException.class, () -> dict.lookup("a"));
-        assertEquals("Key not found", ex.getMessage());
+        assertEquals("key not found", ex.getMessage());
     }
 
     @Test
@@ -41,7 +41,7 @@ class MyDictionaryTest {
     @Test
     void updateOnInvalidKeyThrows(){
         var ex = assertThrows(ADTException.class, () -> dict.update("a", 1));
-        assertEquals("Key not found", ex.getMessage());
+        assertEquals("key not found", ex.getMessage());
     }
 
     @Test

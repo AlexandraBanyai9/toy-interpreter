@@ -25,13 +25,13 @@ class MyListTest {
     @Test
     void getWithNegativeIndexThrows() {
         var ex1 = assertThrows(ADTException.class, () -> list.get(-1));
-        assertEquals("Index out of bounds", ex1.getMessage());
+        assertEquals("index out of bounds", ex1.getMessage());
     }
 
     @Test
     void getWithIndexTooLargeThrows(){
         var ex2 = assertThrows(ADTException.class, () -> list.get(1));
-        assertEquals("Index out of bounds", ex2.getMessage());
+        assertEquals("index out of bounds", ex2.getMessage());
     }
 
     @Test

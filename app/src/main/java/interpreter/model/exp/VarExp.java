@@ -9,7 +9,7 @@ public record VarExp(String id) implements IExp {
     @Override
     public IValue eval(IDictionary<String, IValue> symTable) throws MyException{
         if(!symTable.isDefined(id))
-            throw new ExpressionException("Variable " + id + " is not defined");
+            throw new ExpressionException("variable " + id + " is not defined");
         return symTable.lookup(id);
     }
 }
