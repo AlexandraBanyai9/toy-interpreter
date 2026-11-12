@@ -3,9 +3,6 @@ package interpreter.view;
 import interpreter.controller.Controller;
 import interpreter.exceptions.MyException;
 import interpreter.model.PrgState;
-import interpreter.model.adt.MyDictionary;
-import interpreter.model.adt.MyList;
-import interpreter.model.adt.MyStack;
 import interpreter.model.stmt.IStmt;
 import interpreter.repository.Repository;
 
@@ -15,10 +12,12 @@ public class Menu {
     private static final String[] DESCRIPTIONS = {
             "int v; v = 2; print(v)",
             "int a; int b; a = 2 + 3 * 5; b = a + 1; print(b)",
-            "bool a; int v; a = true; (if a then v = 2 else v = 3); print(v)"
+            "bool a; int v; a = true; (if a then v = 2 else v = 3); print(v)",
+
+            "bool a; a=2; print(a)"
     };
     private static final IStmt[] PROGRAMS = {
-            Examples.EX1, Examples.EX2, Examples.EX3
+            Examples.EX1, Examples.EX2, Examples.EX3, Examples.EX4
     };
 
     private final Scanner scanner = new Scanner(System.in);
@@ -37,8 +36,7 @@ public class Menu {
     }
 
     private void run(IStmt program) {
-        PrgState state = new PrgState(new MyStack<>(), new MyDictionary<>(),
-                new MyList<>(), program);
+        PrgState state = PrgState.of(program);
         Controller controller = new Controller(new Repository(state), true);
         try {
             controller.allStep();

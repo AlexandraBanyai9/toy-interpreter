@@ -30,4 +30,8 @@ public class MyList<T> implements IList<T>{
         return list.toString();
     }
 
+    @Override
+    public List<T> toList(){
+        return List.copyOf(list);
+    }
 }

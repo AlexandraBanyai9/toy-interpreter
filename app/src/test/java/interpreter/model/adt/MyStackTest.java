@@ -4,6 +4,8 @@ import interpreter.exceptions.ADTException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MyStackTest {
@@ -25,7 +27,7 @@ class MyStackTest {
     @Test
     void popOnEmptyStackThrows() {
         var ex = assertThrows(ADTException.class, () -> stack.pop());
-        assertEquals("empty stack, cannot pop!", ex.getMessage());
+        assertEquals("pop from an empty stack", ex.getMessage());
     }
 
     @Test
@@ -35,5 +37,12 @@ class MyStackTest {
         assertFalse(stack.isEmpty());
         stack.pop();
         assertTrue(stack.isEmpty());
+    }
+
+    @Test
+    void toListHasTopFirst() throws ADTException {
+        stack.push(1);
+        stack.push(2);
+        assertEquals(List.of(2, 1), stack.toList());
     }
 }

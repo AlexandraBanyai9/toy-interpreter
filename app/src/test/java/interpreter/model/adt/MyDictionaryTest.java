@@ -50,4 +50,16 @@ class MyDictionaryTest {
         dict.update("a", 2);
         assertEquals(2, dict.lookup("a"));
     }
+
+    @Test
+    void removeDeletesTheKey() throws ADTException {
+        dict.put("a", 1);
+        dict.remove("a");
+        assertFalse(dict.isDefined("a"));
+    }
+
+    @Test
+    void removeMissingKeyThrows() {
+        assertThrows(ADTException.class, () -> dict.remove("a"));
+    }
 }
