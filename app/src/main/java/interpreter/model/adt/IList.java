@@ -9,5 +9,6 @@ public interface IList<T>{
     T get(int index) throws ADTException;
     int size();
 
+    //A3
     List<T> toList();
 }

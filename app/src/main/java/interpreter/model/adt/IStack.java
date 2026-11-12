@@ -9,5 +9,6 @@ public interface IStack<T> {
     public T pop() throws ADTException;
     public boolean isEmpty();
 
+    //A3
     List<T> toList();
 }

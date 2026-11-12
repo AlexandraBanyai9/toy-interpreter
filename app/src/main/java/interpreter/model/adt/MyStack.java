@@ -33,6 +33,7 @@ public class MyStack<T> implements IStack<T>{
         return stack.toString();
     }
 
+    //A3
     @Override
     public List<T> toList(){
         return new ArrayList<>(stack);

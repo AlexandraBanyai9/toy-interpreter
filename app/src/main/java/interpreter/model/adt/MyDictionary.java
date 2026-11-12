@@ -37,6 +37,7 @@ public class MyDictionary<K,V> implements IDictionary<K,V>{
         return map.toString();
     }
 
+    //A3
     @Override
     public void remove(K key) throws ADTException{
         if(!isDefined(key))

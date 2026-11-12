@@ -14,6 +14,7 @@ public class PrgState {
     private IList<IValue> out;
     private final IStmt originalProgram;
 
+    //A3
     private IDictionary<StringValue, BufferedReader> fileTable;
 
     public PrgState(IStack<IStmt> exeStack, IDictionary<String, IValue> symTable,
@@ -68,13 +69,12 @@ public class PrgState {
         this.symTable = symTable;
     }
 
-    //NEW
+    //A3
     public static PrgState of(IStmt program) {
         return new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(),
                 new MyDictionary<>(), program);
     }
 
-    //A3
     public String toLogString() {
         var sb = new StringBuilder();
         sb.append("ExeStack:\n");
