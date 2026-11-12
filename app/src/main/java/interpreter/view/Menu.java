@@ -35,9 +35,10 @@ public class Menu {
         }
     }
 
-    private void run(IStmt program) {
+    private void run(IStmt program, int index) {
         PrgState state = PrgState.of(program);
-        Controller controller = new Controller(new Repository(state), true);
+        String logFile = "log" + (index + 1) + ".txt";
+        Controller controller = new Controller(new Repository(state, logFile), true);
         try {
             controller.allStep();
         } catch (MyException e) {
@@ -73,7 +74,7 @@ public class Menu {
                 } else {
                     System.out.println("\n>>> Running Ex" + (selected + 1) + ": "
                             + DESCRIPTIONS[selected] + "\n");
-                    run(PROGRAMS[selected]);
+                    run(PROGRAMS[selected], selected);
                     selected = -1;
                 }
             }

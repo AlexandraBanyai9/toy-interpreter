@@ -7,15 +7,23 @@ import interpreter.model.value.IntValue;
 import interpreter.repository.Repository;
 import interpreter.view.Examples;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ControllerTest {
+    //A3
+    @TempDir
+    Path dir;
 
-    private static PrgState run(IStmt program) throws MyException {
+    private PrgState run(IStmt program) throws MyException { // fără static
         PrgState state = PrgState.of(program);
-        new Controller(new Repository(state), false).allStep();
+        var repo = new Repository(state, dir.resolve("log.txt").toString());
+        new Controller(repo, false).allStep();
         return state;
     }
 
@@ -38,5 +46,15 @@ class ControllerTest {
         PrgState state = run(Examples.EX3);
         assertTrue(state.getExeStack().isEmpty());
         assertEquals(new IntValue(2), state.getOut().get(0));
+    }
+
+    //A3
+    @Test
+    void logFileContainsTheFourSectionsInOrder() throws Exception {
+        run(Examples.EX1);
+        String log = Files.readString(dir.resolve("log.txt"));
+        int a = log.indexOf("ExeStack:"), b = log.indexOf("SymTable:"),
+                c = log.indexOf("Out:"), d = log.indexOf("FileTable:");
+        assertTrue(0 <= a && a < b && b < c && c < d);
     }
 }

@@ -23,11 +23,14 @@ public class Controller {
         return crtStmt.execute(state);
     }
 
-    public void allStep() throws MyException{
+    //A3 - update
+    public void allStep() throws MyException {
         PrgState prg = repo.getCrtPrg();
+        repo.logPrgStateExec();
         display(prg);
-        while(!prg.getExeStack().isEmpty()){
+        while (!prg.getExeStack().isEmpty()) {
             oneStep(prg);
+            repo.logPrgStateExec();
             display(prg);
         }
     }
