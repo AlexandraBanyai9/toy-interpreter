@@ -6,13 +6,15 @@ import interpreter.exceptions.MyException;
 public class RunExampleCommand extends Command {
     private final Controller controller;
     private boolean executed = false;
+
     public RunExampleCommand(String key, String description, Controller controller) {
         super(key, description);
         this.controller = controller;
     }
+
     @Override
     public void execute() {
-        if (executed) { // un exemplu rulează o singură dată
+        if (executed) { // an example runs a single time
             System.out.println("This example has already been executed.");
             return;
         }
