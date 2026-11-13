@@ -66,6 +66,16 @@ public final class Examples {
                                                     new PrintStmt(new VarExp("a")),
                                                     new PrintStmt(new VarExp("b")))))));
 
+    // EX6: int a; int b; bool c; a=1; b=2; c = a!=b; print(c);
+    public static final IStmt EX6 =
+            new CompStmt(new VarDeclStmt("a", new IntType()),
+                    new CompStmt(new VarDeclStmt("b", new IntType()),
+                            new CompStmt(new VarDeclStmt("c", new BoolType()),
+                                new CompStmt(new AssignStmt("a", new ValueExp(new IntValue(1))),
+                                        new CompStmt(new AssignStmt("b", new ValueExp(new IntValue(2))),
+                                                new CompStmt(new AssignStmt("c",
+                                                        new RelationalExp(RelOp.NE, new VarExp("a"), new VarExp("b"))),
+                                                        new PrintStmt(new VarExp("c"))))))));
 }
 
 

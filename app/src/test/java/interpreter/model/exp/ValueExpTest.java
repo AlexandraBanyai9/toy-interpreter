@@ -6,6 +6,7 @@ import interpreter.model.adt.MyDictionary;
 import interpreter.model.value.BoolValue;
 import interpreter.model.value.IValue;
 import interpreter.model.value.IntValue;
+import interpreter.model.value.StringValue;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,5 +22,11 @@ class ValueExpTest {
     @Test
     void returnsItsBoolValue() throws MyException {
         assertEquals(new BoolValue(true), new ValueExp(new BoolValue(true)).eval(symTable));
+    }
+
+    //A3
+    @Test
+    void returnsItsStringValue() throws MyException {
+        assertEquals(new StringValue("abc"), new ValueExp(new StringValue("abc")).eval(symTable));
     }
 }

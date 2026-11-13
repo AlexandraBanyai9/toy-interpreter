@@ -5,8 +5,10 @@ import interpreter.exceptions.StatementException;
 import interpreter.model.PrgState;
 import interpreter.model.type.BoolType;
 import interpreter.model.type.IntType;
+import interpreter.model.type.StringType;
 import interpreter.model.value.BoolValue;
 import interpreter.model.value.IntValue;
+import interpreter.model.value.StringValue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,5 +40,12 @@ class VarDeclStmtTest {
         IStmt decl = new VarDeclStmt("a", new IntType());
         decl.execute(state);
         assertThrows(StatementException.class, () -> decl.execute(state));
+    }
+
+    //A3
+    @Test
+    void declaresStringVariableWithDefaultEmptyString() throws MyException {
+        new VarDeclStmt("s", new StringType()).execute(state);
+        assertEquals(new StringValue(""), state.getSymTable().lookup("s"));
     }
 }

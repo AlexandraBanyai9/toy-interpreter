@@ -17,4 +17,9 @@ class StringValueTest {
         assertEquals(a, b);
         assertEquals(a.hashCode(), b.hashCode());
     }
+
+    @Test
+    void differentStringValuesAreNotEqual() {
+        assertNotEquals(new StringValue("a.in"), new StringValue("b.in"));
+    }
 }

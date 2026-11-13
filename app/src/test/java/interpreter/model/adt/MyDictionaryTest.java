@@ -51,6 +51,7 @@ class MyDictionaryTest {
         assertEquals(2, dict.lookup("a"));
     }
 
+    //A3
     @Test
     void removeDeletesTheKey() throws ADTException {
         dict.put("a", 1);
