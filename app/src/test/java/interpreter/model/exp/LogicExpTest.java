@@ -3,7 +3,9 @@ package interpreter.model.exp;
 import interpreter.exceptions.ExpressionException;
 import interpreter.exceptions.MyException;
 import interpreter.model.adt.IDictionary;
+import interpreter.model.adt.IHeap;
 import interpreter.model.adt.MyDictionary;
+import interpreter.model.adt.MyHeap;
 import interpreter.model.value.BoolValue;
 import interpreter.model.value.IValue;
 import interpreter.model.value.IntValue;
@@ -14,10 +16,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LogicExpTest {
     private IDictionary<String, IValue> symTable;
-
+    private
+    IHeap heap;
     @BeforeEach
     void setUp(){
+
         symTable = new MyDictionary<>();
+        heap = new MyHeap();
     }
 
     private static IExp bool(boolean b){
@@ -27,30 +32,30 @@ class LogicExpTest {
     @Test
     void andOfTrueAndFalseIsFalse() throws MyException{
         IExp e = new LogicExp(LogicOp.AND, bool(true), bool(false));
-        assertEquals(new BoolValue(false), e.eval(symTable));
+        assertEquals(new BoolValue(false), e.eval(symTable, heap));
     }
 
     @Test
     void orOfFalseAndFalseIsFalse() throws MyException {
         IExp e = new LogicExp(LogicOp.OR, bool(false), bool(false));
-        assertEquals(new BoolValue(false), e.eval(symTable));
+        assertEquals(new BoolValue(false), e.eval(symTable, heap));
     }
 
     @Test
     void orOfTrueAndFalseIsTrue() throws MyException {
         IExp e = new LogicExp(LogicOp.OR, bool(true), bool(false));
-        assertEquals(new BoolValue(true), e.eval(symTable));
+        assertEquals(new BoolValue(true), e.eval(symTable, heap));
     }
 
     @Test
     void nonBooleanFirstOperandThrows(){
         IExp e = new LogicExp(LogicOp.AND, new ValueExp(new IntValue(1)), bool(true));
-        assertThrows(ExpressionException.class, () -> e.eval(symTable));
+        assertThrows(ExpressionException.class, () -> e.eval(symTable, heap));
     }
 
     @Test
     void nonBooleanSecondOperandThrows() {
         IExp e = new LogicExp(LogicOp.AND, bool(true), new ValueExp(new IntValue(1)));
-        assertThrows(ExpressionException.class, () -> e.eval(symTable));
+        assertThrows(ExpressionException.class, () -> e.eval(symTable, heap));
     }
 }
