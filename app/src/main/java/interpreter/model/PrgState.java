@@ -6,6 +6,7 @@ import interpreter.model.stmt.IStmt;
 import interpreter.model.value.StringValue;
 
 import java.io.BufferedReader;
+import java.util.TreeMap;
 
 
 public class PrgState {
@@ -14,16 +15,20 @@ public class PrgState {
     private IList<IValue> out;
     private final IStmt originalProgram;
 
+    //A4
+    private IHeap heap;
+
     //A3
     private IDictionary<StringValue, BufferedReader> fileTable;
 
     public PrgState(IStack<IStmt> exeStack, IDictionary<String, IValue> symTable,
                     IList<IValue> out, IDictionary<StringValue,
-                    BufferedReader> fileTable, IStmt program) {
+                    BufferedReader> fileTable, IHeap heap, IStmt program) {
         this.exeStack = exeStack;
         this.symTable = symTable;
         this.out = out;
         this.fileTable = fileTable;
+        this.heap = heap;
         this.originalProgram = program;
         exeStack.push(program);
     }
@@ -33,7 +38,8 @@ public class PrgState {
         return "ExeStack: " + exeStack + "\n"
                 + "SymTable: " + symTable + "\n"
                 + "Out: " + out + "\n"
-                + "FileTable: " + fileTable.toMap().keySet() + "\n";
+                + "FileTable: " + fileTable.toMap().keySet() + "\n"
+                + "Heap: " + heap + "\n";
     }
 
     // getters, setters
@@ -48,6 +54,8 @@ public class PrgState {
     public IList<IValue> getOut(){
         return out;
     }
+
+    public IHeap getHeap(){ return heap; }
 
     public IStmt getOriginalProgram(){
         return originalProgram;
@@ -69,10 +77,12 @@ public class PrgState {
         this.symTable = symTable;
     }
 
+    public void setHeap(IHeap heap){ this.heap = heap; }
+
     //A3
     public static PrgState of(IStmt program) {
         return new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(),
-                new MyDictionary<>(), program);
+                new MyDictionary<>(), new MyHeap(), program);
     }
 
     public String toLogString() {
@@ -86,6 +96,11 @@ public class PrgState {
         out.toList().forEach(v -> sb.append(v).append('\n'));
         sb.append("FileTable:\n");
         fileTable.toMap().keySet().forEach(f -> sb.append(f.val()).append('\n'));
+
+        sb.append("Heap:\n");
+        new TreeMap<>(heap.getContent()).forEach((addr, v) ->
+                sb.append(addr).append(" --> ").append(v).append('\n'));
+
         return sb.toString();
     }
 }
